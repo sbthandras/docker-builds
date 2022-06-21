@@ -17,6 +17,8 @@ LABEL maintainer.email="sbthandras@gmail.com"
 RUN apt-get update && apt-get install -y \
   locales \
   software-properties-common \
+  build-essential \
+  libx11-dev \
   wget \
   --no-install-recommends && \
   rm -rf /var/lib/apt/lists/* && apt-get autoclean
