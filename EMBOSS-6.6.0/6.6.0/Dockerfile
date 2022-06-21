@@ -35,8 +35,9 @@ RUN wget ftp://emboss.open-bio.org/pub/EMBOSS/EMBOSS-6.6.0.tar.gz && \
 	./configure && \
 	make 
  
-
+ENV PATH="/EMBOSS-6.6.0/emboss:${PATH}"
 WORKDIR /data
+
 
 # test layer
 FROM app as test
@@ -46,7 +47,8 @@ RUN wget "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nucleotide
     wget "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nucleotide&id=X01755.1&rettype=fasta" -O X01755.1.fa
 
 # Alignment
-RUN water -asequence X01753.1.fa -bsequence X01755.1.fa -gapopen 10 -gapextend 0.5 -outfile alignment.water
+RUN water -asequence X01753.1.fa -bsequence X01755.1.fa -gapopen 10 -gapextend 0.5 -outfile alignment.water && \
+    cat alignment.water
 
 
 
